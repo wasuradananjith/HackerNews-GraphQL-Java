@@ -1,0 +1,51 @@
+schema {
+  
+  # The query root of HackerNews GraphQL interface.
+  query: Query
+
+  # The root query for implementing GraphQL mutations.
+  mutation: Mutation
+}
+
+type Link {
+
+  # ID of the link
+  id: ID!
+
+  # URL of the link
+  url: String!
+
+  # Description of the link
+  description: String
+}
+
+input LinkFilter {
+
+  # Value to be checked whether it contains in the description
+  description_contains: String
+
+  # Value to be checked whether it contains in the URL
+  url_contains: String
+}
+
+type Query {
+
+  # Fetches all the links
+  #
+  # Arguments
+  # filter: To filter the links according a specific criteria
+  # skip: Skip to a specific index in the list (default value is 0)
+  # first: Index of the link first to display (default value is 0)
+  allLinks(filter: LinkFilter, skip: Int = 0, first: Int = 0): [Link]
+}
+
+type Mutation {
+
+  # Creates a new link
+  #
+  # Arguments
+  # url: URL of the link
+  # description: Description about the link
+  createLink(url: String!, description: String!): Link
+}
+
